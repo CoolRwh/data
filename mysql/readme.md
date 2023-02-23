@@ -56,7 +56,7 @@ innodb_undo_logs:           回滚的个数 默认128
 ### 事务的隔离级别
 * 读未提交（read uncommited），脏堵，不可重复读，幻读
 * 读已提交（read commited），不可重复读，幻读
-* 可重复读（reqeatable read），innodb默认等级，幻读
+* 可重复读（reqeatable read），默认等级，幻读
 * 串行化（serialable），解决所以问题，但是吞吐不高，容易造成数据库阻塞，效率低
 
 

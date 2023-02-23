@@ -66,7 +66,8 @@ innodb_undo_logs:           回滚的个数 默认128
 ### 按照粒度划分
     
    * 行锁
-        
+     * 行锁分析
+        * show status like 'innodb_row_lock%';
    * 页锁
        
    * 表锁
@@ -87,8 +88,19 @@ innodb_undo_logs:           回滚的个数 默认128
     * 不剥夺条件：       进程已获得的资源，在没有使用完之前，不能强行剥夺
     * 环路等待条件：     多个进程之间形成的一种互相循环等待的资源的关系
   * 解决死锁的基本方法
-    * 查看死锁：show engine innodb status \G
-   
+    * 查看死锁：show engine innodb status
+    * 自动检测机制，超时自动回滚代价较小的事务（innodb_lock_wait_timeout 默认50s）
+    * 人为解决，kill阻塞进程（show processlist）
+    * wait for graph 等待图（主动检测）
+  * 如何避免
+    *  加锁顺序一致，尽可能一次性锁定所需的数据行
+    *  尽量基于primary（主键）或unique key更新数据
+    *  单次操作数据量不宜过多，涉及表尽量少
+    *  减少表上索引，减少锁定资源
+    *  尽量使用较低的隔离级别
+    *  尽量使用相同条件访问数据，这样可以避免间隙锁对并发的插入影响
+    *  精心设计索引，尽量使用索引访问数据
+    *  借助相关工具：pt-deadlock-logger
 
 
 ---

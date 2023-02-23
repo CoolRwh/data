@@ -41,10 +41,10 @@
     * 一旦提交不可改变，永远都是这样
 ### 事务的回滚机制
 * 事务处理时，会记录在 undo log 中，通过 undo log 进行回滚
-    * 我们在进行数据更新操作的时候，不仅会记录redo log，还会记录undo log，如果因为某些原因导致事务回滚，那么这个时候MySQL就要执行回滚（rollback）操作，利用undo log将数据恢复到事务开始之前的状态
 
+ 我们在进行数据更新操作的时候，不仅会记录redo log，还会记录undo log，如果因为某些原因导致事务回滚，那么这个时候MySQL就要执行回滚（rollback）操作，利用undo log将数据恢复到事务开始之前的状态
 
-undo log的配置参数
+* undo log的配置参数
 ```
 innodb_max_undo_log_size:   undo日志文件的最大值，默认1GB，初始化大小10M
 innodb_undo_log_truncate:   标识是否开启自动收缩undo log表空间的操作
